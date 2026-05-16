@@ -70,22 +70,26 @@
         .search-wrap { position: relative; }
         .search-wrap::before { content: "🔍"; position: absolute; left: 1.8rem; top: 50%; transform: translateY(-50%); font-size: 0.8rem; z-index: 1; }
 
-        /* Game Cards - Mobile optimized */
-        .game-list { padding: 0.5rem 1rem; display: flex; flex-direction: column; gap: 0.7rem; }
-        .game-card { display: flex; gap: 0.8rem; padding: 0.8rem; background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; cursor: pointer; transition: all 0.15s; -webkit-user-select: none; user-select: none; }
+        /* Game Cards - 游民星空风格大封面卡片 */
+        .game-list { padding: 0.5rem 1rem; display: flex; flex-direction: column; gap: 0.8rem; }
+        .game-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.15s; -webkit-user-select: none; user-select: none; overflow: hidden; }
         .game-card:active { transform: scale(0.98); background: var(--bg3); }
-        .game-card img { width: 90px; height: 52px; object-fit: cover; border-radius: 8px; flex-shrink: 0; background: var(--bg3); }
-        .game-card-info { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
-        .game-card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .game-card-meta { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-        .game-card-meta span { font-size: 0.7rem; color: var(--text2); }
-        .status-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
-        .dot-playing { background: var(--blue); }
-        .dot-completed { background: var(--green); }
-        .dot-shelved { background: var(--yellow); }
-        .dot-dropped { background: var(--red); }
-        .dot-wishlist { background: var(--pink); }
-        .game-card-rating { font-size: 0.75rem; color: #ffd700; margin-top: 0.3rem; }
+        .game-card-cover { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+        .game-card-body { padding: 0.7rem 0.8rem; }
+        .game-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.3rem; }
+        .game-card-title { font-size: 1rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+        .game-card-score { background: var(--accent); color: white; padding: 0.15rem 0.5rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-left: 0.5rem; }
+        .game-card-score.high { background: var(--green); }
+        .game-card-score.mid { background: var(--yellow); }
+        .game-card-score.na { background: var(--bg4); color: var(--text2); }
+        .game-card-tags { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; margin-top: 0.3rem; }
+        .game-card-tag { font-size: 0.65rem; color: var(--text2); background: var(--bg3); padding: 0.15rem 0.5rem; border-radius: 4px; }
+        .game-card-tag.status { font-weight: 600; }
+        .game-card-tag.status-playing { color: var(--blue); background: rgba(59,130,246,0.12); }
+        .game-card-tag.status-completed { color: var(--green); background: rgba(16,185,129,0.12); }
+        .game-card-tag.status-shelved { color: var(--yellow); background: rgba(245,158,11,0.12); }
+        .game-card-tag.status-dropped { color: var(--red); background: rgba(239,68,68,0.12); }
+        .game-card-tag.status-wishlist { color: var(--pink); background: rgba(236,72,153,0.12); }
 
         /* Floating Add Button */
         .fab { position: fixed; bottom: calc(var(--safe-bottom) + 60px); right: 1.2rem; width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #9b6dff); border: none; color: white; font-size: 1.4rem; cursor: pointer; box-shadow: 0 4px 20px var(--glow); z-index: 40; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
@@ -107,21 +111,34 @@
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
         .btn-delete { width: 100%; padding: 0.7rem; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 10px; color: var(--red); font-size: 0.9rem; cursor: pointer; margin-top: 1rem; }
 
-        /* Detail Page */
+        /* Detail Page - 游民星空风格 */
         .detail-page { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 90; overflow-y: auto; }
         .detail-page.active { display: block; }
         .detail-cover { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
-        .detail-body { padding: 1.2rem; margin-top: -2rem; position: relative; }
-        .detail-body::before { content: ""; position: absolute; top: -60px; left: 0; right: 0; height: 80px; background: linear-gradient(to top, var(--bg), transparent); pointer-events: none; }
-        .detail-title { font-size: 1.5rem; font-weight: 700; position: relative; margin-bottom: 0.3rem; }
-        .detail-status-row { display: flex; gap: 0.6rem; align-items: center; margin-bottom: 1rem; }
-        .detail-stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; margin-bottom: 1.5rem; }
-        .detail-stat { background: var(--bg2); border-radius: 10px; padding: 0.8rem; text-align: center; }
-        .detail-stat .ds-val { font-size: 1.2rem; font-weight: 700; }
-        .detail-stat .ds-lbl { font-size: 0.6rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.2rem; }
+        .detail-body { padding: 0 1.2rem 2rem; margin-top: -1.5rem; position: relative; }
+        .detail-body::before { content: ""; position: absolute; top: -50px; left: 0; right: 0; height: 70px; background: linear-gradient(to top, var(--bg), transparent); pointer-events: none; }
+        .detail-score-badge { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; border-radius: 12px; font-size: 1.3rem; font-weight: 900; color: white; margin-bottom: 0.6rem; }
+        .detail-score-badge.high { background: linear-gradient(135deg, #10b981, #059669); }
+        .detail-score-badge.mid { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .detail-score-badge.low { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .detail-score-badge.na { background: var(--bg3); color: var(--text2); font-size: 0.8rem; }
+        .detail-title { font-size: 1.4rem; font-weight: 800; position: relative; margin-bottom: 0.6rem; line-height: 1.3; }
+        .detail-info-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .detail-info-tag { padding: 0.2rem 0.6rem; background: var(--bg3); border-radius: 6px; font-size: 0.7rem; color: var(--text2); }
+        .detail-info-tag.highlight { color: var(--accent2); background: rgba(124,92,252,0.12); }
+        /* Detail Tabs */
+        .detail-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+        .detail-tab { flex: 1; text-align: center; padding: 0.6rem 0; font-size: 0.8rem; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .detail-tab.active { color: var(--accent2); border-bottom-color: var(--accent2); font-weight: 600; }
+        .detail-tab-content { display: none; }
+        .detail-tab-content.active { display: block; }
         .detail-section { margin-bottom: 1.5rem; }
-        .detail-section h3 { font-size: 0.85rem; color: var(--text2); margin-bottom: 0.6rem; }
+        .detail-section h3 { font-size: 0.8rem; color: var(--text2); margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.5px; }
         .detail-section p { font-size: 0.9rem; line-height: 1.7; color: var(--text); white-space: pre-wrap; }
+        .detail-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1.2rem; }
+        .detail-stat { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 0.7rem; }
+        .detail-stat .ds-val { font-size: 1rem; font-weight: 700; }
+        .detail-stat .ds-lbl { font-size: 0.6rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.15rem; }
         .detail-back { position: fixed; top: calc(var(--safe-top) + 0.6rem); left: calc(var(--safe-left) + 0.8rem); width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: none; color: white; font-size: 1.2rem; cursor: pointer; z-index: 91; display: flex; align-items: center; justify-content: center; }
         .detail-edit { position: fixed; top: calc(var(--safe-top) + 0.6rem); right: calc(var(--safe-right) + 0.8rem); padding: 0.4rem 0.8rem; border-radius: 16px; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: none; color: white; font-size: 0.8rem; cursor: pointer; z-index: 91; }
 
@@ -271,17 +288,21 @@ function renderHome(c){
         </div>
         <div class="game-list">${filtered.length?filtered.map(r=>{
             const i=records.indexOf(r);
+            const score=r.rating||0;
+            const scoreClass=score>=9?'high':score>=7?'mid':score?'':'na';
             return `<div class="game-card" onclick="showDetail(${i})">
-                <img src="${r.cover}" onerror="this.style.background='var(--bg3)'">
-                <div class="game-card-info">
-                    <div class="game-card-title">${r.name}</div>
-                    <div class="game-card-meta">
-                        <span class="status-dot ${statusDot[r.status]}"></span>
-                        <span>${statusMap[r.status]}</span>
-                        ${r.hours?`<span>${r.hours}h</span>`:''}
-                        ${r.platform?`<span>${r.platform}</span>`:''}
+                <img class="game-card-cover" src="${r.cover}" onerror="this.style.background='var(--bg3)';this.style.aspectRatio='16/9'">
+                <div class="game-card-body">
+                    <div class="game-card-top">
+                        <div class="game-card-title">${r.name}</div>
+                        <div class="game-card-score ${scoreClass}">${r.rating?r.rating+'/10':'N/A'}</div>
                     </div>
-                    ${r.rating?`<div class="game-card-rating">${'★'.repeat(Math.round(r.rating/2))}${'☆'.repeat(5-Math.round(r.rating/2))} ${r.rating}/10</div>`:''}
+                    <div class="game-card-tags">
+                        <span class="game-card-tag status status-${r.status}">${statusMap[r.status]}</span>
+                        ${r.genre?`<span class="game-card-tag">${r.genre}</span>`:''}
+                        ${r.platform?`<span class="game-card-tag">${r.platform}</span>`:''}
+                        ${r.hours?`<span class="game-card-tag">${r.hours}h</span>`:''}
+                    </div>
                 </div>
             </div>`;
         }).join(''):`<div class="empty"><div class="e-icon">🎮</div>没有找到游戏</div>`}</div>
@@ -316,29 +337,42 @@ function showDetail(i){
     const dp=document.getElementById('detailPage');
     dp.classList.add('active');
     document.getElementById('detailEditBtn').onclick=()=>{closeDetail();openEdit(i)};
+    const score=r.rating||0;
+    const scoreClass=score>=9?'high':score>=7?'mid':score?'low':'na';
     document.getElementById('detailContent').innerHTML=`
-        <img class="detail-cover" src="${r.cover}" onerror="this.style.background='var(--bg3)';this.style.height='180px'">
+        <img class="detail-cover" src="${r.cover}" onerror="this.style.background='var(--bg3)'">
         <div class="detail-body">
+            <div class="detail-score-badge ${scoreClass}">${r.rating||'?'}</div>
             <div class="detail-title">${r.name}</div>
-            <div class="detail-status-row">
-                <span class="status-dot ${statusDot[r.status]}"></span>
-                <span style="font-size:0.85rem;color:var(--text2)">${statusMap[r.status]}</span>
-                ${r.shortReview?`<span style="font-size:0.8rem;color:var(--text2);font-style:italic">— "${r.shortReview}"</span>`:''}
+            <div class="detail-info-tags">
+                <span class="detail-info-tag highlight">${statusMap[r.status]}</span>
+                ${r.genre?`<span class="detail-info-tag">${r.genre}</span>`:''}
+                ${r.platform?`<span class="detail-info-tag">${r.platform}</span>`:''}
+                ${r.difficulty?`<span class="detail-info-tag">难度: ${r.difficulty}</span>`:''}
+                ${r.completion&&r.completion!=='未通关'?`<span class="detail-info-tag">${r.completion}</span>`:''}
             </div>
-            <div class="detail-stat-grid">
-                ${r.rating?`<div class="detail-stat"><div class="ds-val" style="color:#ffd700">★ ${r.rating}</div><div class="ds-lbl">评分</div></div>`:''}
-                ${r.hours?`<div class="detail-stat"><div class="ds-val">${r.hours}h</div><div class="ds-lbl">时长</div></div>`:''}
-                ${r.platform?`<div class="detail-stat"><div class="ds-val">${r.platform}</div><div class="ds-lbl">平台</div></div>`:''}
-                ${r.genre?`<div class="detail-stat"><div class="ds-val">${r.genre}</div><div class="ds-lbl">类型</div></div>`:''}
-                ${r.completion&&r.completion!=='未通关'?`<div class="detail-stat"><div class="ds-val">${r.completion}</div><div class="ds-lbl">通关度</div></div>`:''}
-                ${r.difficulty?`<div class="detail-stat"><div class="ds-val">${r.difficulty}</div><div class="ds-lbl">难度</div></div>`:''}
+            <div class="detail-tabs">
+                <div class="detail-tab active" onclick="switchDetailTab(this,'tab-info')">信息</div>
+                <div class="detail-tab" onclick="switchDetailTab(this,'tab-notes')">笔记</div>
             </div>
-            ${r.startDate||r.endDate?`<div class="detail-section"><h3>📅 时间</h3><p>${r.startDate||'?'} → ${r.endDate||'进行中'}</p></div>`:''}
-            ${r.notes?`<div class="detail-section"><h3>📝 笔记</h3><p>${r.notes}</p></div>`:''}
+            <div class="detail-tab-content active" id="tab-info">
+                <div class="detail-stat-grid">
+                    ${r.rating?`<div class="detail-stat"><div class="ds-val" style="color:#ffd700">★ ${r.rating}/10</div><div class="ds-lbl">我的评分</div></div>`:''}
+                    ${r.hours?`<div class="detail-stat"><div class="ds-val">${r.hours}h</div><div class="ds-lbl">游玩时长</div></div>`:''}
+                    ${r.platform?`<div class="detail-stat"><div class="ds-val">${r.platform}</div><div class="ds-lbl">平台</div></div>`:''}
+                    ${r.genre?`<div class="detail-stat"><div class="ds-val">${r.genre}</div><div class="ds-lbl">类型</div></div>`:''}
+                </div>
+                ${r.startDate||r.endDate?`<div class="detail-section"><h3>📅 游玩时间</h3><p>${r.startDate||'?'} → ${r.endDate||'进行中'}</p></div>`:''}
+                ${r.shortReview?`<div class="detail-section"><h3>💬 短评</h3><p>"${r.shortReview}"</p></div>`:''}
+            </div>
+            <div class="detail-tab-content" id="tab-notes">
+                ${r.notes?`<div class="detail-section"><p>${r.notes}</p></div>`:`<div class="empty" style="padding:2rem"><div class="e-icon">📝</div>暂无笔记</div>`}
+            </div>
         </div>
     `;
 }
 function closeDetail(){document.getElementById('detailPage').classList.remove('active')}
+function switchDetailTab(el,tabId){el.parentElement.querySelectorAll('.detail-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.detail-tab-content').forEach(c=>c.classList.remove('active'));document.getElementById(tabId).classList.add('active')}
 
 // Modal
 function openAdd(){editIdx=-1;document.getElementById('modalTitle').textContent='记录游戏';document.getElementById('btnDel').style.display='none';clearForm();document.getElementById('modal').classList.add('active')}
