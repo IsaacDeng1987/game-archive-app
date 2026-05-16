@@ -22,7 +22,10 @@
             --safe-left: env(safe-area-inset-left, 0px);
             --safe-right: env(safe-area-inset-right, 0px);
         }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; min-height: 100dvh; overflow-x: hidden; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; min-height: 100dvh; overflow-x: hidden; scrollbar-width: none; }
+        body::-webkit-scrollbar { display: none; }
+        *::-webkit-scrollbar { display: none; }
+        * { scrollbar-width: none; }
 
         /* App Shell */
         .app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
@@ -38,11 +41,17 @@
         .tab-item .tab-icon { font-size: 1.1rem; }
 
         /* Stats Cards */
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; padding: 1rem 1rem 0.5rem; }
-        .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 1rem; }
-        .stat-card .sc-label { font-size: 0.65rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
-        .stat-card .sc-value { font-size: 1.6rem; font-weight: 700; margin-top: 0.2rem; }
-        .stat-card .sc-sub { font-size: 0.65rem; color: var(--text2); margin-top: 0.1rem; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; padding: 0.8rem 1rem 0.5rem; }
+        .stat-card { background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%); border: 1px solid var(--border); border-radius: 16px; padding: 0.9rem 1rem; position: relative; overflow: hidden; }
+        .stat-card::after { content: ""; position: absolute; top: -20px; right: -20px; width: 60px; height: 60px; border-radius: 50%; opacity: 0.06; }
+        .stat-card:nth-child(1)::after { background: var(--accent); }
+        .stat-card:nth-child(2)::after { background: var(--blue); }
+        .stat-card:nth-child(3)::after { background: #ffd700; }
+        .stat-card:nth-child(4)::after { background: var(--green); }
+        .stat-card .sc-icon { font-size: 1rem; margin-bottom: 0.3rem; }
+        .stat-card .sc-label { font-size: 0.6rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-card .sc-value { font-size: 1.5rem; font-weight: 800; margin-top: 0.15rem; letter-spacing: -0.5px; }
+        .stat-card .sc-sub { font-size: 0.6rem; color: var(--text2); margin-top: 0.1rem; }
 
         /* Section */
         .section-title { font-size: 0.9rem; font-weight: 600; padding: 1rem 1rem 0.6rem; display: flex; justify-content: space-between; align-items: center; }
@@ -101,7 +110,7 @@
         /* Detail Page */
         .detail-page { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 90; overflow-y: auto; }
         .detail-page.active { display: block; }
-        .detail-cover { width: 100%; height: 220px; object-fit: cover; }
+        .detail-cover { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
         .detail-body { padding: 1.2rem; margin-top: -2rem; position: relative; }
         .detail-body::before { content: ""; position: absolute; top: -60px; left: 0; right: 0; height: 80px; background: linear-gradient(to top, var(--bg), transparent); pointer-events: none; }
         .detail-title { font-size: 1.5rem; font-weight: 700; position: relative; margin-bottom: 0.3rem; }
@@ -250,10 +259,10 @@ function renderHome(c){
 
     c.innerHTML=`
         <div class="stats-grid">
-            <div class="stat-card"><div class="sc-label">总游戏</div><div class="sc-value">${total}</div></div>
-            <div class="stat-card"><div class="sc-label">总时长</div><div class="sc-value">${totalH}<span style="font-size:0.8rem;color:var(--text2)">h</span></div></div>
-            <div class="stat-card"><div class="sc-label">平均评分</div><div class="sc-value" style="color:#ffd700">${avg}</div></div>
-            <div class="stat-card"><div class="sc-label">已通关</div><div class="sc-value" style="color:var(--green)">${comp}</div><div class="sc-sub">${total?Math.round(comp/total*100):0}%</div></div>
+            <div class="stat-card"><div class="sc-icon">🎮</div><div class="sc-label">总游戏</div><div class="sc-value">${total}</div></div>
+            <div class="stat-card"><div class="sc-icon">⏱️</div><div class="sc-label">总时长</div><div class="sc-value">${totalH}<span style="font-size:0.75rem;color:var(--text2);font-weight:400"> h</span></div></div>
+            <div class="stat-card"><div class="sc-icon">⭐</div><div class="sc-label">平均评分</div><div class="sc-value" style="color:#ffd700">${avg}</div></div>
+            <div class="stat-card"><div class="sc-icon">🏆</div><div class="sc-label">已通关</div><div class="sc-value" style="color:var(--green)">${comp}</div><div class="sc-sub">通关率 ${total?Math.round(comp/total*100):0}%</div></div>
         </div>
         <div class="search-wrap"><input class="search-box" id="searchQ" placeholder="搜索游戏..." oninput="render()" value="${q}"></div>
         <div class="filter-scroll" style="margin-bottom:0.5rem">
@@ -284,10 +293,10 @@ function renderStatsPage(c){
     const top=[...records].sort((a,b)=>(b.hours||0)-(a.hours||0))[0];
     c.innerHTML=`
         <div class="stats-grid">
-            <div class="stat-card"><div class="sc-label">总游戏</div><div class="sc-value">${total}</div></div>
-            <div class="stat-card"><div class="sc-label">总时长</div><div class="sc-value">${totalH}h</div><div class="sc-sub">≈${Math.round(totalH/24)}天</div></div>
-            <div class="stat-card"><div class="sc-label">最肝</div><div class="sc-value" style="font-size:0.9rem">${top?top.name:'-'}</div><div class="sc-sub">${top?.hours||0}h</div></div>
-            <div class="stat-card"><div class="sc-label">通关率</div><div class="sc-value" style="color:var(--green)">${total?Math.round(records.filter(r=>r.status==='completed').length/total*100):0}%</div></div>
+            <div class="stat-card"><div class="sc-icon">🎮</div><div class="sc-label">总游戏</div><div class="sc-value">${total}</div></div>
+            <div class="stat-card"><div class="sc-icon">⏱️</div><div class="sc-label">总时长</div><div class="sc-value">${totalH}h</div><div class="sc-sub">≈${Math.round(totalH/24)}天</div></div>
+            <div class="stat-card"><div class="sc-icon">🔥</div><div class="sc-label">最肝</div><div class="sc-value" style="font-size:0.85rem">${top?top.name:'-'}</div><div class="sc-sub">${top?.hours||0}h</div></div>
+            <div class="stat-card"><div class="sc-icon">🏆</div><div class="sc-label">通关率</div><div class="sc-value" style="color:var(--green)">${total?Math.round(records.filter(r=>r.status==='completed').length/total*100):0}%</div></div>
         </div>
         ${chartCard('类型分布',countField('genre'),'var(--accent)')}
         ${chartCard('平台分布',countField('platform'),'var(--blue)')}
