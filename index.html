@@ -114,33 +114,59 @@
         /* Detail Page - 游民星空风格 */
         .detail-page { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 90; overflow-y: auto; }
         .detail-page.active { display: block; }
-        .detail-cover { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
-        .detail-body { padding: 0 1.2rem 2rem; margin-top: -1.5rem; position: relative; }
-        .detail-body::before { content: ""; position: absolute; top: -50px; left: 0; right: 0; height: 70px; background: linear-gradient(to top, var(--bg), transparent); pointer-events: none; }
-        .detail-score-badge { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; border-radius: 12px; font-size: 1.3rem; font-weight: 900; color: white; margin-bottom: 0.6rem; }
-        .detail-score-badge.high { background: linear-gradient(135deg, #10b981, #059669); }
-        .detail-score-badge.mid { background: linear-gradient(135deg, #f59e0b, #d97706); }
-        .detail-score-badge.low { background: linear-gradient(135deg, #ef4444, #dc2626); }
-        .detail-score-badge.na { background: var(--bg3); color: var(--text2); font-size: 0.8rem; }
-        .detail-title { font-size: 1.4rem; font-weight: 800; position: relative; margin-bottom: 0.6rem; line-height: 1.3; }
-        .detail-info-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
-        .detail-info-tag { padding: 0.2rem 0.6rem; background: var(--bg3); border-radius: 6px; font-size: 0.7rem; color: var(--text2); }
-        .detail-info-tag.highlight { color: var(--accent2); background: rgba(124,92,252,0.12); }
-        /* Detail Tabs */
-        .detail-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
-        .detail-tab { flex: 1; text-align: center; padding: 0.6rem 0; font-size: 0.8rem; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
-        .detail-tab.active { color: var(--accent2); border-bottom-color: var(--accent2); font-weight: 600; }
-        .detail-tab-content { display: none; }
-        .detail-tab-content.active { display: block; }
-        .detail-section { margin-bottom: 1.5rem; }
-        .detail-section h3 { font-size: 0.8rem; color: var(--text2); margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .detail-section p { font-size: 0.9rem; line-height: 1.7; color: var(--text); white-space: pre-wrap; }
-        .detail-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1.2rem; }
-        .detail-stat { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 0.7rem; }
-        .detail-stat .ds-val { font-size: 1rem; font-weight: 700; }
-        .detail-stat .ds-lbl { font-size: 0.6rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.15rem; }
-        .detail-back { position: fixed; top: calc(var(--safe-top) + 0.6rem); left: calc(var(--safe-left) + 0.8rem); width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: none; color: white; font-size: 1.2rem; cursor: pointer; z-index: 91; display: flex; align-items: center; justify-content: center; }
-        .detail-edit { position: fixed; top: calc(var(--safe-top) + 0.6rem); right: calc(var(--safe-right) + 0.8rem); padding: 0.4rem 0.8rem; border-radius: 16px; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: none; color: white; font-size: 0.8rem; cursor: pointer; z-index: 91; }
+        .detail-top-bar { padding: calc(var(--safe-top) + 0.6rem) 1rem 0.6rem; display: flex; align-items: center; gap: 0.8rem; border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 5; }
+        .detail-top-bar .dtb-back { background: none; border: none; color: var(--text); font-size: 1.2rem; cursor: pointer; padding: 0.2rem; }
+        .detail-top-tabs { display: flex; gap: 1.2rem; flex: 1; }
+        .detail-top-tab { font-size: 0.85rem; color: var(--text2); cursor: pointer; padding: 0.2rem 0; border-bottom: 2px solid transparent; font-weight: 500; }
+        .detail-top-tab.active { color: var(--text); border-bottom-color: var(--accent2); font-weight: 600; }
+        .detail-top-bar .dtb-edit { background: none; border: none; color: var(--text2); font-size: 0.85rem; cursor: pointer; }
+
+        /* Header card: cover + info side by side */
+        .dh-card { padding: 1rem; display: flex; gap: 1rem; }
+        .dh-cover { width: 100px; height: 140px; object-fit: cover; border-radius: 8px; flex-shrink: 0; background: var(--bg3); }
+        .dh-info { flex: 1; min-width: 0; }
+        .dh-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; line-height: 1.3; }
+        .dh-sub { font-size: 0.75rem; color: var(--text2); margin-bottom: 0.5rem; }
+        .dh-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+        .dh-tag { padding: 0.15rem 0.45rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; font-size: 0.65rem; color: var(--text2); }
+        .dh-actions { display: flex; gap: 0.5rem; }
+        .dh-btn { flex: 1; padding: 0.45rem 0; border: 1px solid var(--border); border-radius: 8px; background: var(--bg2); color: var(--text2); font-size: 0.75rem; text-align: center; cursor: pointer; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 0.3rem; }
+        .dh-btn.active { border-color: var(--accent); color: var(--accent2); background: rgba(124,92,252,0.08); }
+
+        /* Score section */
+        .d-score-section { padding: 0 1rem 1rem; border-bottom: 1px solid var(--border); }
+        .d-score-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+        .d-score-header .dsh-title { font-size: 0.85rem; font-weight: 600; }
+        .d-score-header .dsh-sub { font-size: 0.7rem; color: var(--text2); }
+        .d-score-row { display: flex; gap: 1rem; align-items: flex-start; }
+        .d-score-big { display: flex; flex-direction: column; align-items: center; }
+        .d-score-num { font-size: 2.2rem; font-weight: 900; color: #ffd700; line-height: 1; }
+        .d-score-count { font-size: 0.6rem; color: var(--text2); margin-top: 0.2rem; }
+        .d-score-bars { flex: 1; display: flex; flex-direction: column; gap: 0.2rem; }
+        .d-score-bar-row { display: flex; align-items: center; gap: 0.3rem; }
+        .d-score-bar-row .stars { font-size: 0.55rem; color: #ffd700; width: 40px; }
+        .d-score-bar-row .bar { flex: 1; height: 8px; background: var(--bg3); border-radius: 4px; overflow: hidden; }
+        .d-score-bar-row .bar-inner { height: 100%; background: #ffd700; border-radius: 4px; }
+
+        /* Quick stats row */
+        .d-quick-stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
+        .d-qs-item { text-align: center; padding: 0.8rem 0.3rem; border-right: 1px solid var(--border); }
+        .d-qs-item:last-child { border-right: none; }
+        .d-qs-val { font-size: 1.1rem; font-weight: 700; }
+        .d-qs-lbl { font-size: 0.55rem; color: var(--text2); margin-top: 0.15rem; }
+
+        /* Info section */
+        .d-info-section { padding: 1rem; border-bottom: 1px solid var(--border); }
+        .d-info-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
+        .d-info-title h3 { font-size: 0.9rem; font-weight: 600; }
+        .d-info-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.7; margin-bottom: 1rem; white-space: pre-wrap; }
+        .d-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem; }
+        .d-info-row { font-size: 0.75rem; }
+        .d-info-row .label { color: var(--text2); }
+        .d-info-row .value { color: var(--text); font-weight: 500; }
+
+        .detail-back { display: none; }
+        .detail-edit { display: none; }
 
         /* Stats Page */
         .stats-page { padding: 0; }
@@ -213,8 +239,6 @@
 
 <!-- Detail -->
 <div class="detail-page" id="detailPage">
-    <button class="detail-back" onclick="closeDetail()">‹</button>
-    <button class="detail-edit" id="detailEditBtn">编辑</button>
     <div id="detailContent"></div>
 </div>
 
@@ -336,43 +360,86 @@ function showDetail(i){
     const r=records[i];
     const dp=document.getElementById('detailPage');
     dp.classList.add('active');
-    document.getElementById('detailEditBtn').onclick=()=>{closeDetail();openEdit(i)};
+    dp.scrollTop=0;
     const score=r.rating||0;
-    const scoreClass=score>=9?'high':score>=7?'mid':score?'low':'na';
+    const genreTags=(r.genre||'').split(/[\/,、]/).filter(Boolean);
+    const isWish=r.status==='wishlist';
+    const isPlayed=r.status!=='wishlist';
+
     document.getElementById('detailContent').innerHTML=`
-        <img class="detail-cover" src="${r.cover}" onerror="this.style.background='var(--bg3)'">
-        <div class="detail-body">
-            <div class="detail-score-badge ${scoreClass}">${r.rating||'?'}</div>
-            <div class="detail-title">${r.name}</div>
-            <div class="detail-info-tags">
-                <span class="detail-info-tag highlight">${statusMap[r.status]}</span>
-                ${r.genre?`<span class="detail-info-tag">${r.genre}</span>`:''}
-                ${r.platform?`<span class="detail-info-tag">${r.platform}</span>`:''}
-                ${r.difficulty?`<span class="detail-info-tag">难度: ${r.difficulty}</span>`:''}
-                ${r.completion&&r.completion!=='未通关'?`<span class="detail-info-tag">${r.completion}</span>`:''}
+        <div class="detail-top-bar">
+            <button class="dtb-back" onclick="closeDetail()">‹</button>
+            <div class="detail-top-tabs">
+                <div class="detail-top-tab active" onclick="switchDetailTab(this,'dtab-game')">游戏</div>
+                <div class="detail-top-tab" onclick="switchDetailTab(this,'dtab-notes')">笔记</div>
             </div>
-            <div class="detail-tabs">
-                <div class="detail-tab active" onclick="switchDetailTab(this,'tab-info')">信息</div>
-                <div class="detail-tab" onclick="switchDetailTab(this,'tab-notes')">笔记</div>
-            </div>
-            <div class="detail-tab-content active" id="tab-info">
-                <div class="detail-stat-grid">
-                    ${r.rating?`<div class="detail-stat"><div class="ds-val" style="color:#ffd700">★ ${r.rating}/10</div><div class="ds-lbl">我的评分</div></div>`:''}
-                    ${r.hours?`<div class="detail-stat"><div class="ds-val">${r.hours}h</div><div class="ds-lbl">游玩时长</div></div>`:''}
-                    ${r.platform?`<div class="detail-stat"><div class="ds-val">${r.platform}</div><div class="ds-lbl">平台</div></div>`:''}
-                    ${r.genre?`<div class="detail-stat"><div class="ds-val">${r.genre}</div><div class="ds-lbl">类型</div></div>`:''}
+            <button class="dtb-edit" onclick="closeDetail();openEdit(${i})">✏️</button>
+        </div>
+
+        <div class="dh-card">
+            <img class="dh-cover" src="${r.cover}" onerror="this.style.background='var(--bg3)'">
+            <div class="dh-info">
+                <div class="dh-name">${r.name}</div>
+                <div class="dh-sub">${r.platform||'PC'} ${r.difficulty?'· '+r.difficulty:''}</div>
+                <div class="dh-tags">
+                    ${genreTags.map(t=>`<span class="dh-tag">${t.trim()}</span>`).join('')}
+                    ${r.completion&&r.completion!=='未通关'?`<span class="dh-tag">${r.completion}</span>`:''}
                 </div>
-                ${r.startDate||r.endDate?`<div class="detail-section"><h3>📅 游玩时间</h3><p>${r.startDate||'?'} → ${r.endDate||'进行中'}</p></div>`:''}
-                ${r.shortReview?`<div class="detail-section"><h3>💬 短评</h3><p>"${r.shortReview}"</p></div>`:''}
+                <div class="dh-actions">
+                    <div class="dh-btn ${isWish?'active':''}">💜 想玩</div>
+                    <div class="dh-btn ${isPlayed?'active':''}">⭐ 玩过</div>
+                </div>
             </div>
-            <div class="detail-tab-content" id="tab-notes">
-                ${r.notes?`<div class="detail-section"><p>${r.notes}</p></div>`:`<div class="empty" style="padding:2rem"><div class="e-icon">📝</div>暂无笔记</div>`}
+        </div>
+
+        <div class="detail-tab-content active" id="dtab-game">
+            ${score?`
+            <div class="d-score-section">
+                <div class="d-score-header">
+                    <div class="dsh-title">我的评价</div>
+                </div>
+                <div class="d-score-row">
+                    <div class="d-score-big">
+                        <div class="d-score-num">${score}</div>
+                        <div class="d-score-count">/ 10</div>
+                    </div>
+                    <div class="d-score-bars">
+                        ${[5,4,3,2,1].map(s=>{
+                            const pct=s<=Math.round(score/2)?((6-s)*18)+'%':'3%';
+                            return `<div class="d-score-bar-row"><div class="stars">${'★'.repeat(s)}</div><div class="bar"><div class="bar-inner" style="width:${pct}"></div></div></div>`;
+                        }).join('')}
+                    </div>
+                </div>
+            </div>`:''}
+
+            <div class="d-quick-stats">
+                <div class="d-qs-item"><div class="d-qs-val">${r.hours||'-'}<span style="font-size:0.7rem;font-weight:400">h</span></div><div class="d-qs-lbl">游玩时长</div></div>
+                <div class="d-qs-item"><div class="d-qs-val">${r.completion||'-'}</div><div class="d-qs-lbl">通关度</div></div>
+                <div class="d-qs-item"><div class="d-qs-val" style="color:${statusColors[r.status]||'var(--text)'}">${statusMap[r.status]}</div><div class="d-qs-lbl">状态</div></div>
+                <div class="d-qs-item"><div class="d-qs-val">${r.difficulty||'-'}</div><div class="d-qs-lbl">难度</div></div>
+            </div>
+
+            <div class="d-info-section">
+                <div class="d-info-title"><h3>简介</h3></div>
+                ${r.shortReview?`<div class="d-info-desc">"${r.shortReview}"</div>`:''}
+                <div class="d-info-grid">
+                    ${r.genre?`<div class="d-info-row"><span class="label">类型：</span><span class="value">${r.genre}</span></div>`:''}
+                    ${r.platform?`<div class="d-info-row"><span class="label">平台：</span><span class="value">${r.platform}</span></div>`:''}
+                    ${r.startDate?`<div class="d-info-row"><span class="label">开始时间：</span><span class="value">${r.startDate}</span></div>`:''}
+                    ${r.endDate?`<div class="d-info-row"><span class="label">完成时间：</span><span class="value">${r.endDate}</span></div>`:''}
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-tab-content" id="dtab-notes">
+            <div class="d-info-section">
+                ${r.notes?`<div class="d-info-desc">${r.notes}</div>`:`<div class="empty" style="padding:3rem 1rem"><div class="e-icon">📝</div>暂无笔记</div>`}
             </div>
         </div>
     `;
 }
 function closeDetail(){document.getElementById('detailPage').classList.remove('active')}
-function switchDetailTab(el,tabId){el.parentElement.querySelectorAll('.detail-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.detail-tab-content').forEach(c=>c.classList.remove('active'));document.getElementById(tabId).classList.add('active')}
+function switchDetailTab(el,tabId){const bar=el.parentElement;bar.querySelectorAll('.detail-top-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.detail-tab-content').forEach(c=>c.classList.remove('active'));document.getElementById(tabId).classList.add('active')}
 
 // Modal
 function openAdd(){editIdx=-1;document.getElementById('modalTitle').textContent='记录游戏';document.getElementById('btnDel').style.display='none';clearForm();document.getElementById('modal').classList.add('active')}
